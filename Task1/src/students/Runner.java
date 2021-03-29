@@ -1,6 +1,7 @@
 package students;
 
 public class Runner {
+
     public static void main(String[] args) {
         Student student = new Student();
         int countStudents = 9;
