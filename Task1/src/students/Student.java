@@ -8,7 +8,7 @@ public class Student {
         this.studyJava = studyJava;
     }
 
-    public void doIt(double talent, int time){
+    public void doIt(double talent, int time) {
         studyJava.timeStudy(talent, time);
     }
 }

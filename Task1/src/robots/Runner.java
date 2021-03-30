@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Runner{
+public class Runner {
 
     public static void main(String[] args) {
         List<String> dumpDetails = Details.getDetails(Details.getFirstCountDetails(20));
@@ -35,15 +35,15 @@ public class Runner{
         List<Integer> countFirstDetails = Details.getCountsEveryoneDetail(detailsForFirstProfessor, listDetails);
         List<Integer> countSecondDetails = Details.getCountsEveryoneDetail(detailsForSecondProfessor, listDetails);
 
-        if (Details.getCountRobots(countFirstDetails) >  Details.getCountRobots(countSecondDetails)){
+        if (Details.getCountRobots(countFirstDetails) > Details.getCountRobots(countSecondDetails)) {
             System.out.println("Победил 1 профессор (роботов = " +
                     Details.getCountRobots(countFirstDetails) + "), в отличие от 2 профессора (роботов = " +
                     Details.getCountRobots(countSecondDetails) + ")");
-        }else if (Details.getCountRobots(countFirstDetails) ==  Details.getCountRobots(countSecondDetails)){
+        } else if (Details.getCountRobots(countFirstDetails) == Details.getCountRobots(countSecondDetails)) {
             System.out.println("Победила дружба 2 профессор (роботов = " +
                     Details.getCountRobots(countSecondDetails) + ") и 1 профессора (роботов = " +
                     Details.getCountRobots(countFirstDetails) + ")");
-        }else {
+        } else {
             System.out.println("Победил 2 профессор (роботов = " +
                     Details.getCountRobots(countSecondDetails) + "), в отличие от 1 профессора (роботов = " +
                     Details.getCountRobots(countFirstDetails) + ")");
@@ -51,7 +51,7 @@ public class Runner{
 
     }
 
-    private void getDumpDetails(List<String> dumpDetails){
+    private void getDumpDetails(List<String> dumpDetails) {
         for (int i = 0; i < 100; i++) {
             dumpDetails.addAll(Details.getDetails(Details.getDetailsForNight()));
             try {
@@ -62,7 +62,7 @@ public class Runner{
         }
     }
 
-    private void getDetailsForProfessor(List<String> detailsForProfessor, List<String> dumpDetails){
+    private void getDetailsForProfessor(List<String> detailsForProfessor, List<String> dumpDetails) {
         for (int i = 0; i < 100; i++) {
             try {
                 Details.addedDetailsProfessor(detailsForProfessor, dumpDetails);

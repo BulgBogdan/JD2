@@ -9,7 +9,7 @@ class Details {
         int[] numbersDetailsForNight = getNumbersDetailsForNight(
                 getNumbersDetails(getDetailsForNight().length, dumpDetails.size()));
         for (int j = numbersDetailsForNight.length - 1; j >= 0; j--) {
-            if (numbersDetailsForNight.length >= dumpDetails.size()){
+            if (numbersDetailsForNight.length >= dumpDetails.size()) {
                 break;
             }
             detailsProfessor.add(dumpDetails.get(numbersDetailsForNight[j]));
