@@ -1,7 +1,10 @@
 package Person;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 public class MethodsForPerson {
@@ -28,5 +31,25 @@ public class MethodsForPerson {
             personList.add(person);
         }
         return personList;
+    }
+
+    static List<Person> withoutDuble(List<Person> personsList) {
+        for (int i = 0; i < personsList.size(); i++) {
+            for (int j = 0; j < personsList.size(); j++) {
+                if (i == j) {
+
+                } else if (personsList.get(j).getSurName().equals(personsList.get(i).getSurName())
+                        && personsList.get(j).getName().equals(personsList.get(i).getName())) {
+                    personsList.remove(j);
+                }
+            }
+        }
+        return personsList;
+    }
+
+    static void saveProperties(Properties p) throws IOException {
+        FileOutputStream fr = new FileOutputStream("C:\\Projects\\study\\JD02\\Task4\\src\\main\\resources\\file.properties");
+        p.store(fr, null);
+        fr.close();
     }
 }
