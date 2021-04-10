@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +23,7 @@ public class App {
         for (Person person : personsWithAge) {
             System.out.println(person.toString());
         }
-        System.out.println("----------------------------------");
+        System.out.println("----------------Print from txt------------------");
 
         // sort by surname and name
         List<Person> sortPersons = personsWithAge.stream()
@@ -33,7 +31,7 @@ public class App {
                 .collect(Collectors.toList());
 
         // delete dublicate
-        List<Person> notDoublePerson = sortPersons.stream().distinct().collect(Collectors.toList());
+        List<Person> notDoublePerson = MethodsForPerson.withoutDuble(sortPersons);
 
         // write file
         FileWriter writer = new FileWriter("Task4\\fileText.txt");
@@ -58,7 +56,29 @@ public class App {
         }
         br.close();
 
+
         // print surname and name
         listNames.forEach(System.out::println);
+
+        // write properties file
+        int valueForWriter = 1;
+        Properties properties = new Properties();
+        for (Person person : notDoublePerson) {
+            String name = person.getName();
+            String surName = person.getSurName();
+            properties.setProperty("surName" + valueForWriter, surName);
+            properties.setProperty("name" + valueForWriter, name);
+            MethodsForPerson.saveProperties(properties);
+            valueForWriter++;
+        }
+        writer.close();
+
+        System.out.println("--------------Print from properties--------------");
+
+        // read properties
+        for (int i = 1; i <= notDoublePerson.size(); i++) {
+            ResourceBundle bundle = ResourceBundle.getBundle("file", Locale.ENGLISH);
+            System.out.println(bundle.getString("surName" + i) + "-" + bundle.getString("name" + i));
+        }
     }
 }
