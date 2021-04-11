@@ -23,7 +23,6 @@ public class App {
         for (Person person : personsWithAge) {
             System.out.println(person.toString());
         }
-        System.out.println("----------------Print from txt------------------");
 
         // sort by surname and name
         List<Person> sortPersons = personsWithAge.stream()
@@ -45,6 +44,8 @@ public class App {
         }
         writer.close();
 
+        System.out.println("----------------Print from txt------------------");
+
         // read file
         BufferedReader br = new BufferedReader(new FileReader("Task4\\fileText.txt"));
         String text;
@@ -55,7 +56,6 @@ public class App {
             listNames.add(names);
         }
         br.close();
-
 
         // print surname and name
         listNames.forEach(System.out::println);

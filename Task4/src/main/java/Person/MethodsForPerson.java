@@ -9,13 +9,13 @@ import java.util.Random;
 
 public class MethodsForPerson {
 
-    private static String getRandomName() {
+    static String getRandomName() {
         String[] names = {"Ivan", "Fedor", "Alex", "Boris", "Semen", "Vasya", "Kolya"};
         int randomName = (int) (Math.random() * 7);
         return names[randomName];
     }
 
-    private static String getRandomSurName() {
+    static String getRandomSurName() {
         String[] names = {"Ivanov", "Fedorov", "Alexandrov", "Borisov", "Semenov", "Vasiliev", "Nikolaev"};
         int randomSurName = (int) (Math.random() * 7);
         return names[randomSurName];
