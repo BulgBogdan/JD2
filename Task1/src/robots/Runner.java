@@ -22,7 +22,7 @@ public class Runner {
         threadThree.start();
 
         try {
-            Thread.sleep(10500);
+            Thread.sleep(11000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
