@@ -1,9 +1,6 @@
 package Person;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,29 +30,24 @@ public class App {
         List<Person> notDoublePerson = MethodsForPerson.withoutDuble(sortPersons);
 
         // write file
-        FileWriter writer = new FileWriter("Task4\\fileText.txt");
-        for (Person person : notDoublePerson) {
-            String name = person.getName();
-            String surName = person.getSurName();
-            String age = String.valueOf(person.getAge());
-            writer.write("surName = " + surName +
-                    ", name = " + name +
-                    ", age = " + age + "\n");
-        }
-        writer.close();
+        FileOutputStream fos = new FileOutputStream("Task4-fileText.dat");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(notDoublePerson);
+        oos.close();
 
-        System.out.println("----------------Print from txt------------------");
+
+        System.out.println("----------------Print from file------------------");
 
         // read file
-        BufferedReader br = new BufferedReader(new FileReader("Task4\\fileText.txt"));
-        String text;
-        List<String> listNames = new ArrayList<>();
-        while ((text = br.readLine()) != null) {
-            String[] line = text.split(",");
-            String names = line[0] + "," + line[1];
-            listNames.add(names);
+        List<Person> readedPersons = new ArrayList<>();
+        FileInputStream fis = new FileInputStream("Task4-fileText.dat");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        try {
+            readedPersons = (ArrayList<Person>) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        br.close();
+        List<String> listNames = readedPersons.stream().map(person -> person.getSurName() + " - " + person.getName()).collect(Collectors.toList());
 
         // print surname and name
         listNames.forEach(System.out::println);
@@ -71,7 +63,6 @@ public class App {
             MethodsForPerson.saveProperties(properties);
             valueForWriter++;
         }
-        writer.close();
 
         System.out.println("--------------Print from properties--------------");
 
