@@ -28,6 +28,8 @@ public class App {
 
         // delete dublicate
         List<Person> notDoublePerson = MethodsForPerson.withoutDuble(sortPersons);
+        // or
+        List<Person> deleteDouble = sortPersons.stream().distinct().collect(Collectors.toList());
 
         // write file
         FileOutputStream fos = new FileOutputStream("Task4-fileText.dat");
