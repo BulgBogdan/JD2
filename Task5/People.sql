@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS `People`.`Person`;
 CREATE TABLE IF NOT EXISTS `People`.`Person`
 (
   `id`            INT          NOT NULL AUTO_INCREMENT,
+  `name`          VARCHAR (50) NULL ,
+  `sur_name`      VARCHAR (50) NULL ,
   `age`           INT          NULL,
   `salary`        DECIMAL      NULL,
   `passport`      CHAR(10)     NULL,
