@@ -18,6 +18,7 @@ public class PersonFileImpl implements PersonService {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(persons);
             oos.close();
+            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,6 +31,8 @@ public class PersonFileImpl implements PersonService {
             FileInputStream fis = new FileInputStream(PATH);
             ObjectInputStream ois = new ObjectInputStream(fis);
             persons = (ArrayList<Person>) ois.readObject();
+            ois.close();
+            fis.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
