@@ -36,6 +36,7 @@ public class PersonDBImpl implements PersonService {
                 statement.executeUpdate(sql);
             }
             ConnectorCreator.closeConnection();
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,6 +67,7 @@ public class PersonDBImpl implements PersonService {
                 result.add(person);
             }
             ConnectorCreator.closeConnection();
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
