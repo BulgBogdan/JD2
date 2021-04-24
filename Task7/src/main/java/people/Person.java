@@ -8,12 +8,14 @@ public class Person {
     private String name;
     private String surname;
     private int age;
+    private int id_address;
 
-    public Person(int id, String name, String surname, int age) {
+    public Person(int id, String name, String surname, int age, int id_address) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.age = age;
+        this.id_address = id_address;
     }
 
     public int getId() {
@@ -32,6 +34,10 @@ public class Person {
         return age;
     }
 
+    public int getId_address() {
+        return id_address;
+    }
+
     public static PersonBuilder builder() {
         return new PersonBuilder();
     }
@@ -41,6 +47,7 @@ public class Person {
         private String name;
         private String surname;
         private int age;
+        private int id_address;
 
         public PersonBuilder id(int id) {
             this.id = id;
@@ -62,8 +69,13 @@ public class Person {
             return this;
         }
 
+        public PersonBuilder id_address(int id_address) {
+            this.id_address = id_address;
+            return this;
+        }
+
         public Person build() {
-            return new Person(id, name, surname, age);
+            return new Person(id, name, surname, age, id_address);
         }
     }
 
@@ -90,6 +102,7 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
+                ", id_address=" + id_address +
                 '}';
     }
 }

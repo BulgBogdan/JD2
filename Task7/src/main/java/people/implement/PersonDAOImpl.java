@@ -26,10 +26,11 @@ public class PersonDAOImpl implements PersonDAO {
             connection = ConnectorCreator.getConnection();
             statement = connection.createStatement();
             String sql = String.format("INSERT INTO People.Person" +
-                            "(name, sur_name, age) VALUES ('%s','%s','%s');",
+                            "(name, sur_name, age, address_id) VALUES ('%s','%s','%s','%s');",
                     person.getName(),
                     person.getSurname(),
-                    person.getAge());
+                    person.getAge(),
+                    person.getId_address());
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +53,8 @@ public class PersonDAOImpl implements PersonDAO {
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("sur_name"),
-                        rs.getInt("age")
+                        rs.getInt("age"),
+                        rs.getInt("address_id")
                 );
             }
         } catch (SQLException e) {
@@ -78,11 +80,13 @@ public class PersonDAOImpl implements PersonDAO {
             String sql = String.format("UPDATE People.Person SET " +
                             "name = '%s', " +
                             "sur_name = '%s', " +
-                            "age = '%d' " +
+                            "age = '%d', " +
+                            "address_id = '%d' " +
                             "WHERE id='%d'",
                     person.getName(),
                     person.getSurname(),
                     person.getAge(),
+                    person.getId_address(),
                     person.getId());
             statement.executeUpdate(sql);
         } catch (SQLException e) {
@@ -124,7 +128,9 @@ public class PersonDAOImpl implements PersonDAO {
                         .id(rs.getInt("id"))
                         .name(rs.getString("sur_name"))
                         .surName(rs.getString("name"))
-                        .age(rs.getInt("age")).build();
+                        .age(rs.getInt("age"))
+                        .id_address(rs.getInt("address_id"))
+                        .build();
                 persons.add(person);
             }
         } catch (SQLException e) {
