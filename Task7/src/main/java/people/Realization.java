@@ -1,10 +1,13 @@
 package people;
 
 import people.dao.AddressDAO;
+import people.dao.PersonAddressDAO;
 import people.dao.PersonDAO;
 import people.implement.AddressDAOImpl;
+import people.implement.PersonAddressDAOImpl;
 import people.implement.PersonDAOImpl;
 import people.util.AddressUtil;
+import people.util.PersonAddressUtil;
 import people.util.PersonUtil;
 
 import java.sql.SQLException;
@@ -14,11 +17,19 @@ public class Realization {
 
     PersonDAO personDAO = new PersonDAOImpl();
     AddressDAO addressDAO = new AddressDAOImpl();
+    PersonAddressDAO personAddressDAO = new PersonAddressDAOImpl();
 
     void createPersonAndAddress(int count) throws SQLException {
         for (int i = 0; i < count; i++) {
             personDAO.save(PersonUtil.getPerson());
             addressDAO.save(AddressUtil.getAddress());
+        }
+        List<Person> persons = personDAO.getAll();
+        List<Address> addresses = addressDAO.getAll();
+        for (Person person : persons) {
+            for (Address address : addresses) {
+                personAddressDAO.save(PersonAddressUtil.getPersonAddress(person, address));
+            }
         }
     }
 
