@@ -123,7 +123,7 @@ public class PersonDAOImpl implements PersonDAO {
                 Person person = Person.builder()
                         .id(rs.getInt("id"))
                         .name(rs.getString("sur_name"))
-                        .surName(rs.getString("name"))
+                        .surname(rs.getString("name"))
                         .age(rs.getInt("age")).build();
                 persons.add(person);
             }

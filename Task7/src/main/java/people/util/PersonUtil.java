@@ -23,7 +23,7 @@ public class PersonUtil {
         return Person.builder()
                 .age(random.nextInt(100) + 15)
                 .name(getRandomName())
-                .surName(getRandomSurName())
+                .surname(getRandomSurName())
                 .build();
     }
 }
