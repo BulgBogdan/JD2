@@ -35,7 +35,7 @@ public class Realization {
             personDAO.update(Person.builder()
                     .id(person.getId())
                     .name(person.getName())
-                    .surName(person.getSurname())
+                    .surname(person.getSurname())
                     .age(person.getAge() + changeValue)
                     .id_address(person.getId_address())
                     .build());
