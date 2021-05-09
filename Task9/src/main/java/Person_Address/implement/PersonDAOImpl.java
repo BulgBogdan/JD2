@@ -6,110 +6,103 @@ import Person_Address.dao.PersonDAO;
 
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static Person_Address.implement.FinallyUtil.blockFinallyClose;
-
 public class PersonDAOImpl implements PersonDAO {
 
     private Connection connection = null;
-    private Statement statement = null;
 
     @Override
-    public void save(Person person) {
+    public void save(Person person) throws SQLException {
         try {
             connection = ConnectorCreator.getConnection();
-            statement = connection.createStatement();
-            String sql = String.format("INSERT INTO People.Person" +
-                            "(name, sur_name, age, address_id) VALUES ('%s','%s','%s','%s');",
-                    person.getName(),
-                    person.getSurname(),
-                    person.getAge(),
-                    person.getId_address());
-            statement.executeUpdate(sql);
+            connection.setAutoCommit(false);
+            String sql = "INSERT INTO Person (name, sur_name, age, address_id) VALUES (?, ?, ?, ?);";
+            List<String> parameters = new ArrayList<>();
+            parameters.add(person.getName());
+            parameters.add(person.getSurname());
+            parameters.add(String.valueOf(person.getAge()));
+            parameters.add(String.valueOf(person.getId_address()));
+
+            if (PreparedStatementUtil.executePreparedStatement(sql, connection, parameters)) {
+                connection.commit();
+            }
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         } finally {
-            blockFinallyClose(connection, statement);
+            if (Objects.nonNull(connection))
+                connection.close();
         }
     }
 
     @Override
-    public Person get(Serializable id) {
+    public Person get(Serializable id) throws SQLException {
         Person person = null;
-        ResultSet rs = null;
         try {
             connection = ConnectorCreator.getConnection();
-            statement = connection.createStatement();
-            String sql = "SELECT * FROM People.Person where id = " + id + ";";
-            rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                person = new Person(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("sur_name"),
-                        rs.getInt("age"),
-                        rs.getInt("address_id")
-                );
-            }
+            connection.setAutoCommit(false);
+            String sql = "SELECT * FROM Person where id = " + id + ";";
+            person = ResultSetUtil.executeResultSet(sql, connection, new Person());
+            connection.commit();
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         } finally {
-            try {
-                if (Objects.nonNull(rs)) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            blockFinallyClose(connection, statement);
+            if (Objects.nonNull(connection))
+                connection.close();
         }
         return person;
     }
 
     @Override
-    public void update(Person person) {
+    public void update(Person person) throws SQLException {
         try {
             connection = ConnectorCreator.getConnection();
-            statement = connection.createStatement();
-            String sql = String.format("UPDATE People.Person SET " +
-                            "name = '%s', " +
-                            "sur_name = '%s', " +
-                            "age = '%d', " +
-                            "address_id = '%d' " +
-                            "WHERE id='%d'",
-                    person.getName(),
-                    person.getSurname(),
-                    person.getAge(),
-                    person.getId_address(),
-                    person.getId());
-            statement.executeUpdate(sql);
+            connection.setAutoCommit(false);
+            String sql = "UPDATE Person SET name = ?, sur_name = ?, age = ?, address_id = ? WHERE id=?";
+            List<String> parameters = new ArrayList<>();
+            parameters.add(person.getName());
+            parameters.add(person.getSurname());
+            parameters.add(String.valueOf(person.getAge()));
+            parameters.add(String.valueOf(person.getId_address()));
+            parameters.add(String.valueOf(person.getId()));
+
+            if (PreparedStatementUtil.executePreparedStatement(sql, connection, parameters)) {
+                connection.commit();
+            }
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         } finally {
-            blockFinallyClose(connection, statement);
+            if (Objects.nonNull(connection))
+                connection.close();
         }
     }
 
     @Override
-    public int delete(Serializable id) {
+    public int delete(Serializable id) throws SQLException {
         int value = 0;
         try {
             connection = ConnectorCreator.getConnection();
-            statement = connection.createStatement();
-            String sql = String.format("DELETE FROM People.Person WHERE id=%d", id);
-            if (statement.execute(sql)) {
+            connection.setAutoCommit(false);
+            String sql = "DELETE FROM Person WHERE id=?";
+            List<String> parameters = new ArrayList<>();
+            parameters.add(String.valueOf(id));
+            if (PreparedStatementUtil.executePreparedStatement(sql, connection, parameters)) {
+                connection.commit();
                 value = 1;
             }
         } catch (SQLException e) {
+            connection.rollback();
+            value = 0;
             e.printStackTrace();
         } finally {
-            blockFinallyClose(connection, statement);
+            if (Objects.nonNull(connection))
+                connection.close();
         }
         return value;
     }
@@ -117,33 +110,19 @@ public class PersonDAOImpl implements PersonDAO {
     @Override
     public List<Person> getAll() {
         List<Person> persons = new ArrayList<>();
-        ResultSet rs = null;
         try {
             connection = ConnectorCreator.getConnection();
-            statement = connection.createStatement();
-            String sql = "SELECT * FROM People.Person";
-            rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                Person person = Person.builder()
-                        .id(rs.getInt("id"))
-                        .name(rs.getString("sur_name"))
-                        .surname(rs.getString("name"))
-                        .age(rs.getInt("age"))
-                        .id_address(rs.getInt("address_id"))
-                        .build();
-                persons.add(person);
-            }
+            String sql = "SELECT * FROM Person";
+            persons = ResultSetUtil.executeResultSetList(sql, connection, new Person());
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (Objects.nonNull(rs)) {
-                    rs.close();
-                }
+                if (Objects.nonNull(connection))
+                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            blockFinallyClose(connection, statement);
         }
         return persons;
     }

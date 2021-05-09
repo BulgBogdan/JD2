@@ -3,6 +3,7 @@ package Person_Address;
 import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 @EqualsAndHashCode

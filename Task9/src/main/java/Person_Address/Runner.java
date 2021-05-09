@@ -14,5 +14,8 @@ public class Runner {
 
         //delete
         realization.deletePersonsAndAddress(1);
+
+        //correct with procedure
+        realization.correctAddress(2, "Pobediteley", 125);
     }
 }
