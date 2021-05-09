@@ -14,11 +14,4 @@ public class ConnectorCreator {
         }
         return connection;
     }
-
-    public static void closeConnection() throws SQLException {
-        if (connection != null) {
-            connection.close();
-        }
-    }
-
 }

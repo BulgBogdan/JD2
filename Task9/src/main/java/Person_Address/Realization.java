@@ -55,4 +55,9 @@ public class Realization {
         personDAO.delete(id);
         addressDAO.delete(id);
     }
+
+    void correctAddress(int id, String street, int house) throws SQLException {
+        Address address = Address.builder().id(id).street(street).house(house).build();
+        addressDAO.correctPerson(address);
+    }
 }
