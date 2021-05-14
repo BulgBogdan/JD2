@@ -1,8 +1,8 @@
 package people.implement;
 
-import people.Person;
+import people.PersonAddress;
 import people.connector.ConnectorCreator;
-import people.dao.PersonDAO;
+import people.dao.PersonAddressDAO;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -15,21 +15,20 @@ import java.util.Objects;
 
 import static people.implement.FinallyUtil.blockFinallyClose;
 
-public class PersonDAOImpl implements PersonDAO {
+public class PersonAddressDAOImpl implements PersonAddressDAO {
 
     private Connection connection = null;
     private Statement statement = null;
 
     @Override
-    public void save(Person person) {
+    public void save(PersonAddress personAddress) {
         try {
             connection = ConnectorCreator.getConnection();
             statement = connection.createStatement();
-            String sql = String.format("INSERT INTO People.Person" +
-                            "(name, sur_name, age) VALUES ('%s','%s','%s');",
-                    person.getName(),
-                    person.getSurname(),
-                    person.getAge());
+            String sql = String.format("INSERT INTO People.Person_Address" +
+                            "(person_id, address_id) VALUES ('%s','%s');",
+                    personAddress.getPerson_id(),
+                    personAddress.getAddress_id());
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,20 +38,19 @@ public class PersonDAOImpl implements PersonDAO {
     }
 
     @Override
-    public Person get(Serializable id) {
-        Person person = null;
+    public PersonAddress get(Serializable id) throws SQLException {
+        PersonAddress personAddress = null;
         ResultSet rs = null;
         try {
             connection = ConnectorCreator.getConnection();
             statement = connection.createStatement();
-            String sql = "SELECT * FROM People.Person where id = " + id + ";";
+            String sql = "SELECT * FROM People.Person_Address where id = " + id + ";";
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                person = new Person(
+                personAddress = new PersonAddress(
                         rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("sur_name"),
-                        rs.getInt("age")
+                        rs.getInt("person_id"),
+                        rs.getInt("address_id")
                 );
             }
         } catch (SQLException e) {
@@ -67,23 +65,21 @@ public class PersonDAOImpl implements PersonDAO {
             }
             blockFinallyClose(connection, statement);
         }
-        return person;
+        return personAddress;
     }
 
     @Override
-    public void update(Person person) {
+    public void update(PersonAddress personAddress) throws SQLException {
         try {
             connection = ConnectorCreator.getConnection();
             statement = connection.createStatement();
-            String sql = String.format("UPDATE People.Person SET " +
-                            "name = '%s', " +
-                            "sur_name = '%s', " +
-                            "age = '%d' " +
+            String sql = String.format("UPDATE People.Person_Address SET " +
+                            "person_id = '%d', " +
+                            "address_id = '%d' " +
                             "WHERE id='%d'",
-                    person.getName(),
-                    person.getSurname(),
-                    person.getAge(),
-                    person.getId());
+                    personAddress.getPerson_id(),
+                    personAddress.getAddress_id(),
+                    personAddress.getId());
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,12 +89,12 @@ public class PersonDAOImpl implements PersonDAO {
     }
 
     @Override
-    public int delete(Serializable id) {
+    public int delete(Serializable id) throws SQLException {
         int value = 0;
         try {
             connection = ConnectorCreator.getConnection();
             statement = connection.createStatement();
-            String sql = String.format("DELETE FROM People.Person WHERE id=%d", id);
+            String sql = String.format("DELETE FROM People.Person_Address WHERE id=%d", id);
             if (statement.execute(sql)) {
                 value = 1;
             }
@@ -111,21 +107,21 @@ public class PersonDAOImpl implements PersonDAO {
     }
 
     @Override
-    public List<Person> getAll() {
-        List<Person> persons = new ArrayList<>();
+    public List<PersonAddress> getAll() {
+        List<PersonAddress> personAddresses = new ArrayList<>();
         ResultSet rs = null;
         try {
             connection = ConnectorCreator.getConnection();
             statement = connection.createStatement();
-            String sql = "SELECT * FROM People.Person";
+            String sql = "SELECT * FROM People.Person_Address";
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Person person = Person.builder()
+                PersonAddress personAddress = PersonAddress.builder()
                         .id(rs.getInt("id"))
-                        .name(rs.getString("sur_name"))
-                        .surname(rs.getString("name"))
-                        .age(rs.getInt("age")).build();
-                persons.add(person);
+                        .person_id(rs.getInt("person_id"))
+                        .address_id(rs.getInt("address_id"))
+                        .build();
+                personAddresses.add(personAddress);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,6 +135,6 @@ public class PersonDAOImpl implements PersonDAO {
             }
             blockFinallyClose(connection, statement);
         }
-        return persons;
+        return personAddresses;
     }
 }

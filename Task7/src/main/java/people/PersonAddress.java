@@ -7,11 +7,10 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class Person {
+public class PersonAddress {
 
     private int id;
-    private String name;
-    private String surname;
-    private int age;
+    private int person_id;
+    private int address_id;
 
 }
