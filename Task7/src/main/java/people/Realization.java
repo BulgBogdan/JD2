@@ -17,8 +17,9 @@ public class Realization {
 
     void createPersonAndAddress(int count) throws SQLException {
         for (int i = 0; i < count; i++) {
-            personDAO.save(PersonUtil.getPerson());
             addressDAO.save(AddressUtil.getAddress());
+            List<Address> addresses = addressDAO.getAll();
+            personDAO.save(PersonUtil.getPerson(addresses));
         }
     }
 
@@ -36,6 +37,7 @@ public class Realization {
                     .name(person.getName())
                     .surname(person.getSurname())
                     .age(person.getAge() + changeValue)
+                    .id_address(person.getId_address())
                     .build());
         }
         // correct last 2 addresses

@@ -1,7 +1,9 @@
 package people.util;
 
+import people.Address;
 import people.Person;
 
+import java.util.List;
 import java.util.Random;
 
 public class PersonUtil {
@@ -18,12 +20,25 @@ public class PersonUtil {
         return names[randomSurName];
     }
 
-    public static Person getPerson() {
+    private static int getAddress(List<Address> addresses) {
+        int[] values = new int[addresses.size()];
+        int value = 0;
+        for (Address address : addresses) {
+            values[value] = address.getId();
+            value++;
+        }
+
+        return values[(int) (Math.random() * values.length)];
+    }
+
+    public static Person getPerson(List<Address> addresses) {
         Random random = new Random();
+        int address = getAddress(addresses);
         return Person.builder()
                 .age(random.nextInt(100) + 15)
                 .name(getRandomName())
                 .surname(getRandomSurName())
+                .id_address(address)
                 .build();
     }
 }
