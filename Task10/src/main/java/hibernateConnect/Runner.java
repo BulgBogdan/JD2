@@ -1,26 +1,23 @@
 package hibernateConnect;
 
-import hibernateConnect.dao.AddressDAO;
-import hibernateConnect.dao.PersonDAO;
-import hibernateConnect.dao.implement.AddressDAOImpl;
-import hibernateConnect.dao.implement.PersonDAOImpl;
-import hibernateConnect.entity.Address;
-import hibernateConnect.entity.Person;
+import hibernateConnect.util.HibernateUtil;
 
 public class Runner {
     public static void main(String[] args) {
-        PersonDAO personDAO = new PersonDAOImpl();
-        AddressDAO addressDAO = new AddressDAOImpl();
-        Address address = Address.builder()
-                .street("Masherova")
-                .house(20).build();
-        addressDAO.create(address);
-        Person person = Person.builder()
-                .name("Ivan")
-                .surname("Ivanov")
-                .age(20)
-                .address(addressDAO.get(2))
-                .build();
-        personDAO.create(person);
+        Realization realization = new Realization();
+
+        //create
+        realization.createPersonAndAddress(5);
+
+        //correct
+        realization.correctPersonAndAddress(2, 2);
+
+        //delete
+        realization.deletePersonsAndAddress(1);
+
+        //correct with procedure
+        realization.correctAddress(2, "Pobediteley", 125);
+
+        HibernateUtil.close();
     }
 }
