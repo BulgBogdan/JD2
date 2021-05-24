@@ -1,6 +1,7 @@
 package HibernateSession;
 
 import HibernateSession.realization.Realization;
+import HibernateSession.util.HibernateUtil;
 
 public class App {
     public static void main(String[] args) {
@@ -19,8 +20,6 @@ public class App {
         //correct
         realization.correctAddress(2, "Pobediteley", 125);
 
-        System.out.println("THE END");
-
-
+        HibernateUtil.closeSessionFactory();
     }
 }
