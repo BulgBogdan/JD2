@@ -12,7 +12,7 @@
         </property>
 
         <property name="hibernate.connection.url">
-            jdbc:mysql://localhost:3306/task-hibernate?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;serverTimezone=UTC
+            jdbc:mysql://localhost:3306/study_schema?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;serverTimezone=UTC
         </property>
         <property name="hibernate.connection.username">
             root
