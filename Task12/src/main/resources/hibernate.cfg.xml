@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQL5Dialect
+        </property>
+        <property name="hibernate.connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property>
+
+        <property name="hibernate.connection.url">
+            jdbc:mysql://localhost:3306/task-hibernate?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;serverTimezone=UTC
+        </property>
+        <property name="hibernate.connection.username">
+            root
+        </property>
+        <property name="hibernate.connection.password">
+            root
+        </property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.show_sql">true</property>
+
+
+        <mapping class="HibernateTasks.entity.Task"/>
+        <mapping class="HibernateTasks.entity.HomeTask"/>
+        <mapping class="HibernateTasks.entity.WorkTask"/>
+        <mapping class="HibernateTasks.entity.Address"/>
+        <mapping class="HibernateTasks.entity.City"/>
+
+    </session-factory>
+</hibernate-configuration>
