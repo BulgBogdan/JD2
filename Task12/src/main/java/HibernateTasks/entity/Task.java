@@ -1,18 +1,20 @@
 package HibernateTasks.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Builder
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
+@Entity
+@Table(name = "TASK")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Task implements Serializable {
 
     @Id
