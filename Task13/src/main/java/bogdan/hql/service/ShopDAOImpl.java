@@ -2,7 +2,7 @@ package bogdan.hql.service;
 
 import bogdan.hql.entity.Shop;
 import bogdan.hql.util.HibernateUtil;
-import org.hibernate.HibernateException;
+import org.eclipse.persistence.exceptions.EclipseLinkException;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public class ShopDAOImpl implements ShopDAO {
             entityManager.getTransaction().begin();
             entityManager.persist(shop);
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -38,7 +38,7 @@ public class ShopDAOImpl implements ShopDAO {
             entityManager.getTransaction().begin();
             shop = entityManager.find(Shop.class, id);
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -55,7 +55,7 @@ public class ShopDAOImpl implements ShopDAO {
             entityManager.getTransaction().begin();
             entityManager.merge(shop);
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -74,7 +74,7 @@ public class ShopDAOImpl implements ShopDAO {
             entityManager.remove(entityManager.merge(shop));
             entityManager.getTransaction().commit();
             deleted = true;
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -92,7 +92,7 @@ public class ShopDAOImpl implements ShopDAO {
             entityManager.getTransaction().begin();
             shops = entityManager.createQuery("from Shop").getResultList();
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {

@@ -7,7 +7,7 @@ import bogdan.hql.service.SellerDAOImpl;
 import bogdan.hql.service.ShopDAO;
 import bogdan.hql.service.ShopDAOImpl;
 import bogdan.hql.util.HibernateUtil;
-import org.hibernate.HibernateException;
+import org.eclipse.persistence.exceptions.EclipseLinkException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -38,7 +38,7 @@ public class Realization {
             sellers = entityManager.createQuery("from Seller").getResultList();
             shops = entityManager.createQuery("from Shop").getResultList();
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -61,7 +61,7 @@ public class Realization {
                 System.out.println("Name: " + seller[0] + " Last Name: " + seller[1]);
             });
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -82,7 +82,7 @@ public class Realization {
                 System.out.println("Last Name: " + seller[0] + " Salary: " + seller[1]);
             });
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -105,7 +105,7 @@ public class Realization {
                 System.out.println("Shop Name: " + shop[0] + " LastName: " + shop[1]);
             });
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
