@@ -2,7 +2,7 @@ package bogdan.hql.service;
 
 import bogdan.hql.entity.Seller;
 import bogdan.hql.util.HibernateUtil;
-import org.hibernate.HibernateException;
+import org.eclipse.persistence.exceptions.EclipseLinkException;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public class SellerDAOImpl implements SellerDAO {
             entityManager.getTransaction().begin();
             entityManager.persist(seller);
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -38,7 +38,7 @@ public class SellerDAOImpl implements SellerDAO {
             entityManager.getTransaction().begin();
             seller = entityManager.find(Seller.class, id);
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -55,7 +55,7 @@ public class SellerDAOImpl implements SellerDAO {
             entityManager.getTransaction().begin();
             entityManager.merge(seller);
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -73,7 +73,7 @@ public class SellerDAOImpl implements SellerDAO {
             entityManager.remove(entityManager.merge(seller));
             entityManager.getTransaction().commit();
             deleted = true;
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
@@ -91,7 +91,7 @@ public class SellerDAOImpl implements SellerDAO {
             entityManager.getTransaction().begin();
             sellers = entityManager.createQuery("from Seller ").getResultList();
             entityManager.getTransaction().commit();
-        } catch (HibernateException ex) {
+        } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
         } finally {
             if (Objects.nonNull(entityManager)) {
