@@ -35,8 +35,8 @@ public class Realization {
         List<Shop> shops = null;
         try {
             entityManager.getTransaction().begin();
-            sellers = entityManager.createQuery("from Seller").getResultList();
-            shops = entityManager.createQuery("from Shop").getResultList();
+            sellers = entityManager.createQuery("from Seller s").getResultList();
+            shops = entityManager.createQuery("from Shop s").getResultList();
             entityManager.getTransaction().commit();
         } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();

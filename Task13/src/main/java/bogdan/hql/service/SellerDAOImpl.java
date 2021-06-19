@@ -89,7 +89,7 @@ public class SellerDAOImpl implements SellerDAO {
         try {
             entityManager = HibernateUtil.getEntityManager();
             entityManager.getTransaction().begin();
-            sellers = entityManager.createQuery("from Seller ").getResultList();
+            sellers = entityManager.createQuery("from Seller s").getResultList();
             entityManager.getTransaction().commit();
         } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
