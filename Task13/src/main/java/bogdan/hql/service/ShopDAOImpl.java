@@ -90,7 +90,7 @@ public class ShopDAOImpl implements ShopDAO {
         try {
             entityManager = HibernateUtil.getEntityManager();
             entityManager.getTransaction().begin();
-            shops = entityManager.createQuery("from Shop").getResultList();
+            shops = entityManager.createQuery("from Shop s").getResultList();
             entityManager.getTransaction().commit();
         } catch (EclipseLinkException ex) {
             entityManager.getTransaction().rollback();
