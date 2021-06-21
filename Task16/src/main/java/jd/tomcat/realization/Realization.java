@@ -27,7 +27,7 @@ public class Realization {
 
     public void createStudents(int count) {
         List<Teacher> teachers = teacherDAO.getAll(Teacher.class);
-        if (teachers.size() == 0) {
+        if (teachers.isEmpty()) {
             createTeachers(count);
         }
         for (int i = 0; i < count; i++) {
@@ -38,7 +38,7 @@ public class Realization {
 
     public void createTasks(int count) {
         List<Student> students = studentDAO.getAll(Student.class);
-        if (students.size() == 0) {
+        if (students.isEmpty()) {
             createStudents(count);
         }
         for (int i = 0; i < count; i++) {
