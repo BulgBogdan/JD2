@@ -43,6 +43,5 @@ public class App {
         session.save(homeTask);
         session.save(workTask);
         transaction.commit();
-
     }
 }
