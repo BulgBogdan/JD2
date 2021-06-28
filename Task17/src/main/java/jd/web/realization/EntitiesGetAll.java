@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class GetAllEntitties<T> {
+public class EntitiesGetAll<T> {
 
     private EntityManager entityManager;
 
