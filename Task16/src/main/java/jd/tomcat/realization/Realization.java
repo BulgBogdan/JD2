@@ -14,9 +14,9 @@ import java.util.List;
 
 public class Realization {
 
-    StudentDAO studentDAO = new StudentDAOImpl();
-    TeacherDAO teacherDAO = new TeacherDAOImpl();
-    TaskDAO taskDAO = new TaskDAOImpl();
+    private StudentDAO studentDAO = new StudentDAOImpl();
+    private TeacherDAO teacherDAO = new TeacherDAOImpl();
+    private TaskDAO taskDAO = new TaskDAOImpl();
 
     public void createTeachers(int count) {
         for (int i = 0; i < count; i++) {

@@ -26,8 +26,6 @@ public class StudentServlet extends HttpServlet {
         if (students.isEmpty()) {
             realization.createStudents(20);
         }
-        students = studentDAO.getAll(Student.class);
-
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
         writer.write("<html><head>\n" +
