@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @DiscriminatorValue("W")
 @Entity
-@Table(name = "work_task")
+@Table(name = "worktask")
 public class WorkTask extends Task {
 
     @Column(name = "cost")
