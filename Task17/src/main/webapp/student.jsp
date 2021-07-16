@@ -8,6 +8,7 @@
           integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 </head>
 <body>
+<h5 class="text-danger">Time session: ${timeSession} seconds</h5>
 <div class="container">
     <table class="table table-hover" id="dev-table">
         <thead>
@@ -27,6 +28,7 @@
         </c:forEach>
         </tbody>
     </table>
+    <h5 class="text-success">Cookie input: ${cookieValue}</h5>
 </div>
 
 <a href="home">Home</a>

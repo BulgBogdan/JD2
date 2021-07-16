@@ -8,6 +8,7 @@
 </head>
 <body>
 <h3 class="textStyle">Choose page</h3>
+<h5 class="text-danger">Time session: ${timeSession} seconds</h5>
 <a href="admin">Administrator</a>
 <br>
 <a href="teacher">Teachers</a>
