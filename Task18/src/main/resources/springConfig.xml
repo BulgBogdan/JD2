@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="alone" class="WalkAlone">
+    </bean>
+    <bean id="family" class="WalkFamily">
+    </bean>
+    <bean id="friends" class="WalkFriends">
+    </bean>
+    <bean id="notifier" class="Notifier">
+    </bean>
+
+    <bean id="walk" class="WalkBean">
+        <property name="walk" ref="friends"/>
+    </bean>
+
+    <aop:config>
+        <aop:aspect id="notifier" ref="notifier">
+            <aop:pointcut id="pointcut" expression="execution(public void WalkBean.walk())"/>
+            <aop:before method="notifyBefore" pointcut-ref="pointcut"/>
+            <aop:after method="notifyAfter" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
