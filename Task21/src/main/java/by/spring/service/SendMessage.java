@@ -1,10 +1,22 @@
 package by.spring.service;
 
-public class SendMessage implements Send {
-    public static final String TEXT_MESSAGE = "message text";
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    @Override
-    public void send(String message) {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class SendMessage {
+
+    private String message;
+
+    public void send() {
         System.out.println("Text message: " + message);
+    }
+
+    public void sendException() throws Exception {
+        System.out.println("Exception");
+        throw new Exception();
     }
 }
