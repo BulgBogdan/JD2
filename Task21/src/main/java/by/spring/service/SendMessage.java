@@ -1,10 +1,18 @@
 package by.spring.service;
 
-public class SendMessage implements Send {
-    public static final String TEXT_MESSAGE = "message text";
+import org.springframework.stereotype.Service;
 
-    @Override
-    public void send(String message) {
+@Service
+public class SendMessage {
+
+    private final String message = "Text";
+
+    public void send() {
         System.out.println("Text message: " + message);
+    }
+
+    public void sendException() throws Exception {
+        System.out.println("Exception");
+        throw new Exception();
     }
 }
